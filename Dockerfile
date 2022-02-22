@@ -1,7 +1,8 @@
-FROM node:alpine3.11 AS build
+FROM node:alpine3.11
 
 WORKDIR /var/www/html/app
 COPY . /var/www/html/app
+RUN apk add --no-cache bash
 ######################
 # CREATE APP
 #RUN apk update && apk add git

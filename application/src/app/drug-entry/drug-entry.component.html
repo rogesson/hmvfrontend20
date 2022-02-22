@@ -1,58 +1,47 @@
 <!-- Page Content --> 
 <div class="container"> 
-   <div class="row"> 
-      <div class="col-lg-12 text-center" style="padding-top: 20px;"> 
-         <div class="container" style="padding-left: 0px; padding-right: 0px;"> 
-            <div class="row"> 
-            <div class="col-sm" style="text-align: left;"> {{ title }} 
-            </div> 
+  <div class="row"> 
+    <div class="col-lg-12 text-center" style="padding-top: 20px;"> 
+      <div class="container" style="padding-left: 0px; padding-right: 0px;"> 
+        <div class="row"> 
+          <div class="col-sm" style="text-align: left;">
+            <b>{{ title }}</b>
+          </div> 
+          <div *ngIf="isLogIn">
             <div class="col-sm" style="text-align: right;"> 
-               <button type="button" class="btn btn-primary">Editar</button> 
+              <button type="button" class="btn btn-primary">Editar</button> 
             </div> 
-            </div> 
-         </div> 
-         <div class="container box" style="margin-top: 10px;"> 
-         <div class="row"> 
-         <div class="col-2" style="text-align: right;">  
-            <strong><em>Nome:</em></strong> 
-         </div> 
-         <div class="col" style="text-align: left;"> 
-            PARACETAMOL
-         </div>
-         </div> 
-         <div class="row"> 
-         <div class="col-2" style="text-align: right;">
-            <strong><em>Quantidade:</em></strong> 
-         </div> 
-         <div class="col" style="text-align: left;"> 
-            20 
-         </div> 
-         </div> 
-         <div class="row"> 
-         <div class="col-2" style="text-align: right;"> 
-            <strong><em>Categoria:</em></strong> 
-         </div> 
-         <div class="col" style="text-align: left;"> 
-            Dor 
-         </div> 
-         </div> 
-         <div class="row"> 
-         <div class="col-2" style="text-align: right;"> 
-            <strong><em>Local:</em></strong>
-         </div> 
-         <div class="col" style="text-align: left;"> 
-            SP 
-         </div> 
-         </div> 
-         <div class="row"> 
-         <div class="col-2" style="text-align: right;"> 
-            <strong><em>Criado em:</em></strong> 
-         </div> 
-         <div class="col" style="text-align: left;"> 
-            21/02/2022
-         </div> 
-         </div> 
+          </div>
+        </div> 
       </div> 
-   </div> 
-</div> 
+      <div class="container box" style="margin-top: 10px;"> 
+        <div class="row"> 
+          <div class="col-2" style="text-align: right;">  
+            <strong><em>ID:</em></strong> 
+          </div> 
+          <div class="col" style="text-align: left;"> 
+            {{ drugEntry.id }}
+          </div>
+        </div> 
+        <div class="row"> 
+          <div class="col-2" style="text-align: right;">  
+            <strong><em>Nome:</em></strong> 
+          </div> 
+          <div class="col" style="text-align: left;"> 
+            {{ drugEntry.name }} 
+          </div>
+        </div> 
+      </div> 
+    </div> 
+  </div> 
+</div>
+----
+<br/>
+<div class="container">
+   Medicamentos
+   <div *ngFor="let drug of drugs" [ngClass]="{
+                                  'highlight':drug.id === 2
+                                  }">
+     {{ drug.name }}
+   </div>
 </div>

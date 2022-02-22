@@ -1,0 +1,33 @@
+<!-- Page Content -->
+<div class="container"> 
+  <div class="row"> 
+    <div class="col-lg-12 text-center" style="padding-top: 20px;">
+      <div class="container" style="padding-left: 0px; padding-right: 0px;"> 
+        <div class="row"> 
+          <div class="col-sm" style="text-align: left;"> 
+            <b>{{ title }}</b>
+          </div> 
+          <div class="col-sm" style="text-align: right;"> 
+            <button type="button" class="btn btn-primary">Criar</button> 
+          </div> 
+        </div> 
+      </div> 
+      <div class="container box" style="margin-top: 10px;"> 
+        <table class="table table-striped"> 
+          <thead> 
+            <tr> 
+              <th>ID</th> 
+              <th>Nome</th> 
+            </tr> 
+          </thead> 
+          <tbody> 
+            <tr *ngFor="let drug of drugEntries"> 
+              <th scope="row">{{ drug.id }}</th> 
+              <th>{{ drug.name }}</th> 
+            </tr> 
+          </tbody> 
+        </table> 
+      </div> 
+    </div> 
+  </div> 
+</div>
