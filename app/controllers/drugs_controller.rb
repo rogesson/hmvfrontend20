@@ -25,7 +25,7 @@ class DrugsController < ApplicationController
 
     respond_to do |format|
       if @drug.save
-        format.html { redirect_to drug_url(@drug), notice: "Drug was successfully created." }
+        format.html { redirect_to drugs_url(@drug), notice: "Drug was successfully created." }
         format.json { render :show, status: :created, location: @drug }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -65,6 +65,6 @@ class DrugsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def drug_params
-      params.fetch(:drug, {})
+      params.require(:drug).permit(:id, :name)
     end
 end

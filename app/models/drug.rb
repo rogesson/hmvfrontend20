@@ -17,12 +17,33 @@ class Drug
   attribute :id, :integer
   attribute :name, :string
 
+  validates_presence_of :name
+
   def self.find(id)
-    self
+    response = self.request_get('/drug/id/' + id)
+    if response.status == 302
+      drug = JSON.parse(response.body)
+      self.new(
+        id: drug['drugId'],
+        name: drug['drugName']
+      )
+    else 
+      nil
+    end
+  end
+
+  def update(new_attributes)
+    puts "new_attributes"
+    puts new_attributes
+    new_attributes.each do |k, v|
+      self.send("#{k}=", v)
+    end
+
+    response = request_put('/drug/' + id.to_s, self)
   end
 
   def self.all
-    response = self.get
+    response = self.request_get('/drug')
     if response.status == 302
       @drugs = JSON.parse(response.body)["content"].map do |drug|
         Drug.new(
@@ -37,9 +58,16 @@ class Drug
   end
 
   def save
-    body = post(self.attributes)
+    return false unless valid?
+
+    body = request_post('/drug', self)
     self.id = body["drugId"]
     self
+  end
+
+  def destroy
+    response = request_delete("/drug/#{id}")
+    puts response
   end
 
   def attributes
@@ -50,27 +78,49 @@ class Drug
     self.id.to_s
   end
 
+  def to_query
+    attributes.to_query
+  end
+
+  def persisted?
+    !self.id.nil?
+  end
+
   private
 
-    def self.get
+    def self.request_get(uri='')
       response = Faraday.get(
-        API_ENDPOINT + '/drug',
+        API_ENDPOINT + uri,
         "Content-Type" => "application/json"
       )
+
+      puts "REQUEST>>>>>>"
+      puts response.status
+      puts response.body
+      puts "REQUEST<<<<<<"
+
 
       response
     end
 
-    def post(data)
+    def request_post(uri, data)
       params = { 
         "drugName" => data.name
       }
 
-      url = API_ENDPOINT + '/drug'
-
       response = Faraday.post(
-        API_ENDPOINT + '/drug',
+        API_ENDPOINT + uri,
         params.to_json,
+        "Content-Type" => "application/json"
+      )
+
+      response.body
+    end
+
+    def request_delete(uri)
+      response = Faraday.delete(
+        API_ENDPOINT + uri,
+        {},
         "Content-Type" => "application/json"
       )
 

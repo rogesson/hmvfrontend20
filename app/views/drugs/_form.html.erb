@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="actions">
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
     <%= form.submit %>
   </div>
 <% end %>
