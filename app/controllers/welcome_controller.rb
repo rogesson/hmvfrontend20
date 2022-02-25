@@ -1,10 +1,9 @@
-require 'net/http'
+require 'faraday'
 
 class WelcomeController < ApplicationController
   def index
-    result = Net::HTTP.get(
-      URI.parse('http://172.22.0.1:8080/api/v1/drug')
-    )
-    puts result
+    response = Faraday.get('http://172.22.0.1:8080/api/v1/drug')
+
+    puts response.body
   end
 end

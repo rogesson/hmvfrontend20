@@ -8,4 +8,4 @@ down:
 	docker-compose down
 
 console:
-	docker exec -it hvmfrontrails_web_1 /bin/bash
+	docker exec -it hmvfrontend20_web_1 /bin/bash
