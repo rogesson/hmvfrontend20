@@ -1,17 +1,4 @@
-require 'faraday'
-
-class Drug
-  include ActiveModel::Model
-  include ActiveModel::Conversion
-  include ActiveModel::Validations
-  include ActiveModel::Attributes
-  include ActiveModel::AttributeAssignment
-  include ActiveModel::AttributeMethods
-  include ActiveModel::Serialization
-  extend ActiveModel::Naming
-  include ActiveModel::Serialization
-  include Rails.application.routes.url_helpers
-
+class Drug < BaseModel
   API_ENDPOINT = 'http://172.22.0.1:8080/api/v1'
 
   attribute :id, :integer
@@ -70,22 +57,6 @@ class Drug
     puts response
   end
 
-  def attributes
-    super().symbolize_keys
-  end
-
-  def to_param
-    self.id.to_s
-  end
-
-  def to_query
-    attributes.to_query
-  end
-
-  def persisted?
-    !self.id.nil?
-  end
-
   private
 
     def self.request_get(uri='')
@@ -99,9 +70,24 @@ class Drug
       puts response.body
       puts "REQUEST<<<<<<"
 
-
       response
     end
+
+    def request_put(uri, data)
+      params = { 
+        "drugId"   => data.id,
+        "drugName" => data.name
+      }
+
+      response = Faraday.put(
+        API_ENDPOINT + uri,
+        params.to_json,
+        "Content-Type" => "application/json"
+      )
+
+      response.body
+    end
+
 
     def request_post(uri, data)
       params = { 
