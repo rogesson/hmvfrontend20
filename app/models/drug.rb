@@ -7,7 +7,7 @@ class Drug < BaseModel
   validates_presence_of :name
 
   def self.find(id)
-    response = self.request_get('/drug/id/' + id)
+    response = self.request_get("/drug/id/#{id}")
     if response.status == 302
       drug = JSON.parse(response.body)
       self.new(
@@ -48,13 +48,17 @@ class Drug < BaseModel
     return false unless valid?
 
     body = request_post('/drug', self)
-    self.id = body["drugId"]
+    self.id = JSON.parse(body)["drugId"]
     self
   end
 
   def destroy
     response = request_delete("/drug/#{id}")
     puts response
+  end
+
+  def self.last
+    Drug.all.last
   end
 
   private

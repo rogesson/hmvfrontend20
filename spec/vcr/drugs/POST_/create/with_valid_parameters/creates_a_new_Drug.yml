@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://172.22.0.1:8080/api/v1/drug
+    body:
+      encoding: UTF-8
+      string: '{"drugName":"medicamentox"}'
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: ''
+    headers:
+      content-type:
+      - application/json
+      transfer-encoding:
+      - chunked
+      date:
+      - Sun, 06 Mar 2022 00:35:36 GMT
+    body:
+      encoding: UTF-8
+      string: '{"drugId":14,"drugName":"medicamentox"}'
+  recorded_at: Sun, 06 Mar 2022 00:35:36 GMT
+- request:
+    method: get
+    uri: http://172.22.0.1:8080/api/v1/drug/id/13?Content-Type=application%2Fjson
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 302
+      message: ''
+    headers:
+      content-type:
+      - application/json
+      transfer-encoding:
+      - chunked
+      date:
+      - Sun, 06 Mar 2022 00:35:36 GMT
+    body:
+      encoding: UTF-8
+      string: '{"drugId":13,"drugName":"Aspirina"}'
+  recorded_at: Sun, 06 Mar 2022 00:35:36 GMT
+recorded_with: VCR 6.0.0

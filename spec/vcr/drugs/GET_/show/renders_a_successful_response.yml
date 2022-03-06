@@ -1,0 +1,27 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://172.22.0.1:8080/api/v1/drug/id/1?Content-Type=application%2Fjson
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 302
+      message: ''
+    headers:
+      content-type:
+      - application/json
+      transfer-encoding:
+      - chunked
+      date:
+      - Sat, 05 Mar 2022 23:31:05 GMT
+    body:
+      encoding: UTF-8
+      string: '{"drugId":1,"drugName":"Neosaudina"}'
+  recorded_at: Sat, 05 Mar 2022 23:31:05 GMT
+recorded_with: VCR 6.0.0

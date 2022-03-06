@@ -18,7 +18,9 @@ RSpec.describe "/drugs", type: :request do
   # Drug. As you add validations to Drug, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      name: 'Aspirina'
+    }
   }
 
   let(:invalid_attributes) {
@@ -27,17 +29,33 @@ RSpec.describe "/drugs", type: :request do
 
   describe "GET /index" do
     it "renders a successful response", :vcr do
-      #Drug.create! valid_attributes
       get drugs_url
       expect(response).to be_successful
+
+      drugs = assigns(:drugs)
+      expect(drugs).not_to be_nil
+      expect(drugs.first.attributes).to match(
+        { 
+          id: 1,
+          name: "Neosaudina"
+        }
+      )
     end
   end
 
   describe "GET /show" do
-    it "renders a successful response" do
-      drug = Drug.create! valid_attributes
-      get drug_url(drug)
+    it "renders a successful response", :vcr do
+      get drug_url(1)
       expect(response).to be_successful
+
+      drug = assigns(:drug)
+      expect(drug).not_to be_nil
+      expect(drug.attributes).to match(
+        { 
+          id: 1,
+          name: "Neosaudina"
+        }
+      )
     end
   end
 
@@ -49,82 +67,41 @@ RSpec.describe "/drugs", type: :request do
   end
 
   describe "GET /edit" do
-    it "renders a successful response" do
-      drug = Drug.create! valid_attributes
-      get edit_drug_url(drug)
+    it "renders a successful response", :vcr do
+      get edit_drug_url(1)
       expect(response).to be_successful
+      drug = assigns(:drug)
+      expect(drug).not_to be_nil
+      expect(drug.attributes).to match(
+        { 
+          id: 1,
+          name: "Neosaudina"
+        }
+      )
     end
   end
 
   describe "POST /create" do
-    context "with valid parameters" do
+    context "with valid parameters", :vcr do
       it "creates a new Drug" do
-        expect {
-          post drugs_url, params: { drug: valid_attributes }
-        }.to change(Drug, :count).by(1)
-      end
-
-      it "redirects to the created drug" do
-        post drugs_url, params: { drug: valid_attributes }
-        expect(response).to redirect_to(drug_url(Drug.last))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "does not create a new Drug" do
-        expect {
-          post drugs_url, params: { drug: invalid_attributes }
-        }.to change(Drug, :count).by(0)
-      end
-
-      it "renders a successful response (i.e. to display the 'new' template)" do
-        post drugs_url, params: { drug: invalid_attributes }
-        expect(response).to be_successful
+        post drugs_url, params: { drug: {name: "medicamentox"} }
+        expect(response).to redirect_to('http://www.example.com/drugs.14')
       end
     end
   end
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested drug" do
-        drug = Drug.create! valid_attributes
-        patch drug_url(drug), params: { drug: new_attributes }
-        drug.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "redirects to the drug" do
-        drug = Drug.create! valid_attributes
-        patch drug_url(drug), params: { drug: new_attributes }
-        drug.reload
-        expect(response).to redirect_to(drug_url(drug))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        drug = Drug.create! valid_attributes
-        patch drug_url(drug), params: { drug: invalid_attributes }
-        expect(response).to be_successful
+      it "updates the requested drug", :vcr do
+        patch drug_url(14), params: { drug: { id: 14, name: "aspirina" } }
+        expect(response).to redirect_to(drug_url(14))
       end
     end
   end
 
-  describe "DELETE /destroy" do
+  describe "DELETE /destroy", :vcr do
     it "destroys the requested drug" do
-      drug = Drug.create! valid_attributes
-      expect {
-        delete drug_url(drug)
-      }.to change(Drug, :count).by(-1)
-    end
-
-    it "redirects to the drugs list" do
-      drug = Drug.create! valid_attributes
-      delete drug_url(drug)
+      delete drug_url(14)
       expect(response).to redirect_to(drugs_url)
     end
   end
