@@ -1,5 +1,3 @@
-require 'faraday'
-
 class BaseModel
   include ActiveModel::Model
   include ActiveModel::Conversion
@@ -10,7 +8,7 @@ class BaseModel
   include ActiveModel::Serialization
   extend  ActiveModel::Naming
   include ActiveModel::Serialization
-  include Rails.application.routes.url_helpers
+  #include Rails.application.routes.url_helpers
 
   def attributes
     super().symbolize_keys

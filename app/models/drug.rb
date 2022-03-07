@@ -1,13 +1,11 @@
 class Drug < BaseModel
-  API_ENDPOINT = 'http://172.22.0.1:8080/api/v1'
-
   attribute :id, :integer
   attribute :name, :string
 
   validates_presence_of :name
 
   def self.find(id)
-    response = self.request_get("/drug/id/#{id}")
+    response = RequestService::get("/drug/id/#{id}")
     if response.status == 302
       drug = JSON.parse(response.body)
       self.new(
@@ -20,17 +18,21 @@ class Drug < BaseModel
   end
 
   def update(new_attributes)
-    puts "new_attributes"
-    puts new_attributes
     new_attributes.each do |k, v|
       self.send("#{k}=", v)
     end
 
-    response = request_put('/drug/' + id.to_s, self)
+    data = { 
+      "drugId"   => id,
+      "drugName" => name
+    }
+
+    response = RequestService::put('/drug/' + id.to_s, data)
   end
 
   def self.all
-    response = self.request_get('/drug')
+    response = RequestService::get('/drug')
+
     if response.status == 302
       @drugs = JSON.parse(response.body)["content"].map do |drug|
         Drug.new(
@@ -47,73 +49,21 @@ class Drug < BaseModel
   def save
     return false unless valid?
 
-    body = request_post('/drug', self)
+    data = { 
+      "drugName" => name
+    }
+
+    body = RequestService.post('/drug', data)
     self.id = JSON.parse(body)["drugId"]
     self
   end
 
   def destroy
-    response = request_delete("/drug/#{id}")
+    response = RequestService.delete("/drug/#{id}")
     puts response
   end
 
   def self.last
     Drug.all.last
   end
-
-  private
-
-    def self.request_get(uri='')
-      response = Faraday.get(
-        API_ENDPOINT + uri,
-        "Content-Type" => "application/json"
-      )
-
-      puts "REQUEST>>>>>>"
-      puts response.status
-      puts response.body
-      puts "REQUEST<<<<<<"
-
-      response
-    end
-
-    def request_put(uri, data)
-      params = { 
-        "drugId"   => data.id,
-        "drugName" => data.name
-      }
-
-      response = Faraday.put(
-        API_ENDPOINT + uri,
-        params.to_json,
-        "Content-Type" => "application/json"
-      )
-
-      response.body
-    end
-
-
-    def request_post(uri, data)
-      params = { 
-        "drugName" => data.name
-      }
-
-      response = Faraday.post(
-        API_ENDPOINT + uri,
-        params.to_json,
-        "Content-Type" => "application/json"
-      )
-
-      response.body
-    end
-
-    def request_delete(uri)
-      response = Faraday.delete(
-        API_ENDPOINT + uri,
-        {},
-        "Content-Type" => "application/json"
-      )
-
-      response.body
-    end
 end
