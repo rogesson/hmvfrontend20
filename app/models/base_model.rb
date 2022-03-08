@@ -25,4 +25,10 @@ class BaseModel
   def persisted?
     !self.id.nil?
   end
+
+  protected 
+
+  def self.find(uri)
+    response = RequestService::get(uri)
+  end
 end

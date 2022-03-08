@@ -14,7 +14,7 @@ module RequestService
     puts response.body
     puts "REQUEST<<<<<<"
 
-    response
+    parse_response(response)
   end
 
   def self.put(uri, data)
@@ -24,7 +24,7 @@ module RequestService
       "Content-Type" => "application/json"
     )
 
-    response.body
+    parse_response(response)
   end
 
   def self.post(uri, data)
@@ -34,7 +34,7 @@ module RequestService
       "Content-Type" => "application/json"
     )
 
-    response.body
+    parse_response(response)
   end
 
   def self.delete(uri)
@@ -46,4 +46,12 @@ module RequestService
 
     response.body
   end
+
+  private
+
+    def self.parse_response(response)
+      return if response.status == 500
+
+      JSON.parse(response.body)
+    end
 end

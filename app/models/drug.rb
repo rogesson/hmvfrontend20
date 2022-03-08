@@ -5,16 +5,14 @@ class Drug < BaseModel
   validates_presence_of :name
 
   def self.find(id)
-    response = RequestService::get("/drug/id/#{id}")
-    if response.status == 302
-      drug = JSON.parse(response.body)
-      self.new(
-        id: drug['drugId'],
-        name: drug['drugName']
-      )
-    else 
-      nil
-    end
+    response = super("/drug/id/#{id}")
+
+    return unless response
+
+    self.new(
+      id: response['drugId'],
+      name: response['drugName']
+    )
   end
 
   def update(new_attributes)
@@ -32,17 +30,13 @@ class Drug < BaseModel
 
   def self.all
     response = RequestService::get('/drug')
+    return [] unless response
 
-    if response.status == 302
-      @drugs = JSON.parse(response.body)["content"].map do |drug|
-        Drug.new(
-          id: drug['drugId'],
-          name: drug['drugName']
-        )
-      end
-    else 
-      puts response.inspect
-      []
+    response["content"].map do |drug|
+      Drug.new(
+        id: drug['drugId'],
+        name: drug['drugName']
+      )
     end
   end
 
@@ -53,14 +47,15 @@ class Drug < BaseModel
       "drugName" => name
     }
 
-    body = RequestService.post('/drug', data)
-    self.id = JSON.parse(body)["drugId"]
+    response = RequestService.post('/drug', data)
+    self.id = response["drugId"]
     self
   end
 
   def destroy
     response = RequestService.delete("/drug/#{id}")
     puts response
+    true
   end
 
   def self.last
