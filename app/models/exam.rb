@@ -1,10 +1,12 @@
-class Drug < BaseModel
+class Exam < BaseModel
   attribute :id, :integer
-  attribute :name, :string
+  attribute :result, :string
+  attribute :patient, Patient
+  attribute :type, ExamType
 
   validates_presence_of :name
 
-  ENDPOINT = '/drug'.freeze
+  ENDPOINT = '/examentry'.freeze
 
   def self.find(id)
     response = super("#{ENDPOINT}/id/#{id}")
@@ -12,8 +14,11 @@ class Drug < BaseModel
     return unless response
 
     self.new(
-      id: response['drugId'],
-      name: response['drugName']
+      id: response['examEntryId'],
+      result: response['examResult'],
+      date: response['examDateTime'],
+      patient: response['patient'],
+      type: response['examType'],
     )
   end
 

@@ -50,8 +50,12 @@ module RequestService
   private
 
     def self.parse_response(response)
-      return if response.status == 500
+      begin
+        JSON.parse(response.body)
+      rescue => e
+        puts e
 
-      JSON.parse(response.body)
+        nil
+      end
     end
 end
