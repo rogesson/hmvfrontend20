@@ -7,8 +7,6 @@ class BaseModel
   include ActiveModel::AttributeMethods
   include ActiveModel::Serialization
   extend  ActiveModel::Naming
-  include ActiveModel::Serialization
-  #include Rails.application.routes.url_helpers
 
   def attributes
     super().symbolize_keys
@@ -26,7 +24,7 @@ class BaseModel
     !self.id.nil?
   end
 
-  protected 
+  protected
 
   def self.find(uri)
     response = RequestService::get(uri)

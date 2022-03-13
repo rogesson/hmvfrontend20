@@ -1,17 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Exams</h1>
+<h1>Exames</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>ID</th>
+      <th>Data do Exame</th>
+      <th>Paciente</th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @exams.each do |exam| %>
       <tr>
+        <td><%= exam.id %></td>
+        <td><%= exam.full_date %></td>
+        <td><%= exam.patient.name %></td>
         <td><%= link_to 'Show', exam %></td>
         <td><%= link_to 'Edit', edit_exam_path(exam) %></td>
         <td><%= link_to 'Destroy', exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>

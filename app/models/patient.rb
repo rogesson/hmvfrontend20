@@ -3,4 +3,5 @@ class Patient < BaseModel
   attribute :name, :string
   attribute :email, :string
   attribute :cpf, :string
+  attribute :password, :string
 end

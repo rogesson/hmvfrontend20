@@ -22,7 +22,12 @@ class ExamsController < ApplicationController
 
   # POST /exams or /exams.json
   def create
+    puts "========================"
+    puts "exam_params: #{exam_params.inspect}"
+    puts "========================"
     @exam = Exam.new(exam_params)
+    #@exam.patient = Patient.new({id: 1, name: "Rogesson", email: "rogessonb@gmail.com", cpf: "407.340.978-67", password: '1234'})
+    #@exam.exam_type = ExamType.new({id: 1, name: "Cardiologia"})
 
     respond_to do |format|
       if @exam.save
@@ -64,8 +69,28 @@ class ExamsController < ApplicationController
       @exam = Exam.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def exam_params
-      params.require(:exam).permit(:id, :result, :patient, :type)
+      params.require(:exam).permit(
+        [
+          :result,
+          {
+            patient: [
+              :name,
+              :email,
+              :cpf
+            ]
+          },
+          {
+            exam_type: [
+              :id,
+              :name
+            ]
+          }
+        ]
+      )
+    end
+
+    def patient_params
+      params.require(:patient).permit(:id, :name, :email, :cpf)
     end
 end
