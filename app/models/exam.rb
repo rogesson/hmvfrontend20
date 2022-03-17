@@ -6,7 +6,7 @@ class Exam < BaseModel
   #attribute :patient, :patient
   #attribute :type, ExamType
 
-  validates_presence_of :result
+  #validates_presence_of :result
 
   ENDPOINT = '/examentry'.freeze
 
@@ -22,22 +22,6 @@ class Exam < BaseModel
 
     return unless response
 
-    {"examEntryId":8,
-     "examResult":"12%",
-     "examDateTime":"2022-03-13T20:19:34",
-     "patient":
-     {"userId":2,
-      "name":"Fulano",
-      "email":"teste@gmail.com",
-      "cpf":"123456789",
-      "password":"corinthians123"
-    },
-    "examType":
-    {
-      "examTypeId":4,
-      "examName":"Cardiológico"
-    }}
-
     patient_attr = {
       id: response['patient']['userId'],
       name: response['patient']['name'],
@@ -46,12 +30,17 @@ class Exam < BaseModel
       password: response['patient']['password']
     }
 
+    exam_type_attr = {
+      "id" => response['examType']['examTypeId'],
+      "name" => response['examType']['examName']
+    }
+
     self.new(
       id: response['examEntryId'],
       result: response['examResult'],
       date: response['examDateTime'],
       patient: Patient.new(patient_attr),
-      exam_type: response['examType']
+      exam_type: ExamType.new(exam_type_attr)
     )
   end
 
@@ -60,7 +49,17 @@ class Exam < BaseModel
       self.send("#{k}=", v)
     end
 
-    response = RequestService::put("#{ENDPOINT}/" + id.to_s, data)
+    self.patient = Patient.new(new_attributes[:patient])
+    self.exam_type = ExamType.new(new_attributes[:exam_type])
+
+    data = {
+      "examDateTime": "2022-03-13T20:19:34",
+      "examResult": result,
+      "examTypeId": exam_type.id,
+      "patientId": patient.id,
+    }
+
+    RequestService::put("#{ENDPOINT}/" + id.to_s, data)
   end
 
   def self.all
@@ -90,12 +89,13 @@ class Exam < BaseModel
     data = {
       "examResult" => result,
       "examDateTime" => Time.now.strftime('%FT%T'),
-      "examTypeId" => 4,
-      "patientId" => 2
+      "examTypeId" => exam_type.id,
+      "patientId" => patient.id
     }
 
     response = RequestService.post(ENDPOINT, data)
     self.id = response["examEntryId"]
+    self.date = data["examDateTime"]
     self
   end
 

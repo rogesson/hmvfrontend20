@@ -4,20 +4,34 @@
       <h2><%= pluralize(exam.errors.count, "error") %> prohibited this exam from being saved:</h2>
 
       <ul>
-      <% exam.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% exam.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="actions">
-    <div class="form-group">
+    <div class="mb-3">
       <%= form.label :result %>
       <%= form.text_field :result, class: "form-control" %>
     </div>
 
-    <% if (false) %>
+    <%= form.fields_for :patient do |p| %>
+      <div class="mb-3">
+        <%= form.label :patient %>
+        <%= p.select :id, options_for_select(@patients, @exam.patient.id), { include_blank: 'Selecione' }, { class: "form-select" } %>
+      </div>
+    <% end %>
+
+    <%= form.fields_for :exam_type do |p| %>
+      <div class="form-group">
+        <%= form.label :id %>
+        <%= p.select :id, options_for_select(@exam_types, @exam.exam_type.id), { include_blank: 'Selecione' }, { class: "form-select" } %>
+      </div>
+    <% end %>
+
+      <% if (false) %>
       <%= form.fields_for :patient do |c| %>
         <div class="form-group">
           <%= form.label :name %>
@@ -47,8 +61,7 @@
         </div>
       <% end %>
     <% end %>
-
-
-    <%= form.submit %>
+    <br>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

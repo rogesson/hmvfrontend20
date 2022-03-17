@@ -4,4 +4,23 @@ class Patient < BaseModel
   attribute :email, :string
   attribute :cpf, :string
   attribute :password, :string
+
+  ENDPOINT = '/userdetails'.freeze
+
+  def self.all
+    response = RequestService::get(ENDPOINT)
+    return [] unless response
+
+    response["content"].map do |resource|
+      patient_attr = {
+        id: resource['userId'],
+        name: resource['name'],
+        email: resource['email'],
+        cpf: resource['cpf'],
+        password: resource['password']
+      }
+
+      Patient.new(patient_attr)
+    end
+  end
 end

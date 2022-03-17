@@ -13,12 +13,14 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/exams", type: :request do
-  
+
   # This should return the minimal set of attributes required to create a valid
-  # Exam. As you add validations to Exam, be sure to
+  # exam. As you add validations to exam, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      result: '10%'
+    }
   }
 
   let(:invalid_attributes) {
@@ -26,18 +28,35 @@ RSpec.describe "/exams", type: :request do
   }
 
   describe "GET /index" do
-    it "renders a successful response" do
-      Exam.create! valid_attributes
+    it "renders a successful response", :vcr do
       get exams_url
       expect(response).to be_successful
+
+      exams = assigns(:exams)
+      expect(exams).not_to be_nil
+      expected = {
+        id: 5,
+        date: "2022-03-13T19:56:18.593",
+        result: nil
+      }
+
+      expect(exams.first.attributes).to match(expected)
     end
   end
 
   describe "GET /show" do
-    it "renders a successful response" do
-      exam = Exam.create! valid_attributes
-      get exam_url(exam)
+    it "renders a successful response", :vcr do
+      get exam_url(1)
       expect(response).to be_successful
+
+      exam = assigns(:exam)
+      expect(exam).not_to be_nil
+      expect(exam.attributes).to match(
+                                   {
+                                     id: 1,
+                                     name: "Neosaudina"
+                                   }
+                                 )
     end
   end
 
@@ -49,82 +68,61 @@ RSpec.describe "/exams", type: :request do
   end
 
   describe "GET /edit" do
-    it "renders a successful response" do
-      exam = Exam.create! valid_attributes
-      get edit_exam_url(exam)
+    it "renders a successful response", :vcr do
+      get edit_exam_url(1)
       expect(response).to be_successful
+      exam = assigns(:exam)
+      expect(exam).not_to be_nil
+      expect(exam.attributes).to match(
+                                   {
+                                     id: 1,
+                                     name: "Neosaudina"
+                                   }
+                                 )
     end
   end
 
   describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Exam" do
-        expect {
-          post exams_url, params: { exam: valid_attributes }
-        }.to change(Exam, :count).by(1)
-      end
+    context "with valid parameters", :vcr do
+      it "creates a new exam" do
+        post exams_url, params: {
+          exam: {
+            result: "17%",
+            patient: {
+              id: 1,
+            },
+            exam_type: {
+              id: 5
+            }
+          }
+        }
 
-      it "redirects to the created exam" do
-        post exams_url, params: { exam: valid_attributes }
-        expect(response).to redirect_to(exam_url(Exam.last))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "does not create a new Exam" do
-        expect {
-          post exams_url, params: { exam: invalid_attributes }
-        }.to change(Exam, :count).by(0)
-      end
-
-      it "renders a successful response (i.e. to display the 'new' template)" do
-        post exams_url, params: { exam: invalid_attributes }
-        expect(response).to be_successful
+        exam = assigns(:exam)
+        expect(exam.attributes)
+          .to match(
+            {
+              id: 9,
+              result: '17%',
+              date: anything
+            }
+          )
+        expect(response).to redirect_to('http://www.example.com/exams/9')
       end
     end
   end
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested exam" do
-        exam = Exam.create! valid_attributes
-        patch exam_url(exam), params: { exam: new_attributes }
-        exam.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "redirects to the exam" do
-        exam = Exam.create! valid_attributes
-        patch exam_url(exam), params: { exam: new_attributes }
-        exam.reload
-        expect(response).to redirect_to(exam_url(exam))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        exam = Exam.create! valid_attributes
-        patch exam_url(exam), params: { exam: invalid_attributes }
-        expect(response).to be_successful
+      it "updates the requested exam", :vcr do
+        patch exam_url(14), params: { exam: { id: 14, name: "aspirina" } }
+        expect(response).to redirect_to(exam_url(14))
       end
     end
   end
 
-  describe "DELETE /destroy" do
+  describe "DELETE /destroy", :vcr do
     it "destroys the requested exam" do
-      exam = Exam.create! valid_attributes
-      expect {
-        delete exam_url(exam)
-      }.to change(Exam, :count).by(-1)
-    end
-
-    it "redirects to the exams list" do
-      exam = Exam.create! valid_attributes
-      delete exam_url(exam)
+      delete exam_url(14)
       expect(response).to redirect_to(exams_url)
     end
   end

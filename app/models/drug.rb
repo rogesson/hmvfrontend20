@@ -27,7 +27,7 @@ class Drug < BaseModel
       "drugName" => name
     }
 
-    response = RequestService::put("#{ENDPOINT}/" + id.to_s, data)
+    RequestService::put("#{ENDPOINT}/" + id.to_s, data)
   end
 
   def self.all

@@ -77,7 +77,7 @@ module RequestService
       end
 
       if ![200, 201, 203, 302].include?(response.status)
-        raise "Invalid Request!"
+        self.raise_http_error(response.status)
       end
 
       begin
@@ -85,7 +85,11 @@ module RequestService
       rescue => e
         puts e
 
-        raise "Invalid Request!"
+        self.raise_http_error(response.status)
       end
+    end
+
+    def self.raise_http_error(status)
+      raise "Invalid Request: StatusCode: #{status}"
     end
 end
