@@ -9,7 +9,8 @@ module RequestService
       "Content-Type" => "application/json"
     )
 
-    puts "REQUEST>>>>>>"
+    puts "[GET] REQUEST>>>>>>"
+    puts uri
     puts response.status
     puts response.body
     puts "REQUEST<<<<<<"
@@ -24,6 +25,13 @@ module RequestService
       "Content-Type" => "application/json"
     )
 
+    puts "[PUT] REQUEST>>>>>>"
+    puts uri
+    puts data
+    puts response.status
+    puts response.body
+    puts "REQUEST<<<<<<"
+
     parse_response(response)
   end
 
@@ -33,6 +41,13 @@ module RequestService
       data.to_json,
       "Content-Type" => "application/json"
     )
+
+    puts "[POST] REQUEST>>>>>>"
+    puts uri
+    puts data
+    puts response.status
+    puts response.body
+    puts "REQUEST<<<<<<"
 
     parse_response(response)
   end
@@ -44,14 +59,37 @@ module RequestService
       "Content-Type" => "application/json"
     )
 
+    puts "[DELETE] REQUEST>>>>>>"
+    puts uri
+    puts {}
+    puts response.status
+    puts response.body
+    puts "REQUEST<<<<<<"
+
     response.body
   end
 
   private
 
     def self.parse_response(response)
-      return if response.status == 500
+      if [404].include?(response.status)
+        return nil # [TODO] return
+      end
 
-      JSON.parse(response.body)
+      if ![200, 201, 203, 302].include?(response.status)
+        self.raise_http_error(response.status)
+      end
+
+      begin
+        JSON.parse(response.body)
+      rescue => e
+        puts e
+
+        self.raise_http_error(response.status)
+      end
+    end
+
+    def self.raise_http_error(status)
+      raise "Invalid Request: StatusCode: #{status}"
     end
 end

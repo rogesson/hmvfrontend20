@@ -4,8 +4,10 @@ class Drug < BaseModel
 
   validates_presence_of :name
 
+  ENDPOINT = '/drug'.freeze
+
   def self.find(id)
-    response = super("/drug/id/#{id}")
+    response = super("#{ENDPOINT}/id/#{id}")
 
     return unless response
 
@@ -25,11 +27,11 @@ class Drug < BaseModel
       "drugName" => name
     }
 
-    response = RequestService::put('/drug/' + id.to_s, data)
+    RequestService::put("#{ENDPOINT}/" + id.to_s, data)
   end
 
   def self.all
-    response = RequestService::get('/drug')
+    response = RequestService::get(ENDPOINT)
     return [] unless response
 
     response["content"].map do |drug|
@@ -47,18 +49,18 @@ class Drug < BaseModel
       "drugName" => name
     }
 
-    response = RequestService.post('/drug', data)
+    response = RequestService.post(ENDPOINT, data)
     self.id = response["drugId"]
     self
   end
 
   def destroy
-    response = RequestService.delete("/drug/#{id}")
+    response = RequestService.delete("#{ENDPOINT}/#{id}")
     puts response
     true
   end
 
   def self.last
-    Drug.all.last
+    self.class.all.last
   end
 end

@@ -1,0 +1,28 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://172.22.0.1:8080/api/v1/examentry?Content-Type=application%2Fjson
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 302
+      message: ''
+    headers:
+      content-type:
+      - application/json
+      transfer-encoding:
+      - chunked
+      date:
+      - Tue, 15 Mar 2022 23:50:36 GMT
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJjb250ZW50IjpbeyJleGFtRW50cnlJZCI6NSwiZXhhbVJlc3VsdCI6InN0cmluZyIsImV4YW1EYXRlVGltZSI6IjIwMjItMDMtMTNUMTk6NTY6MTguNTkzIiwicGF0aWVudCI6eyJ1c2VySWQiOjIsIm5hbWUiOiJGdWxhbm8iLCJlbWFpbCI6InRlc3RlQGdtYWlsLmNvbSIsImNwZiI6IjEyMzQ1Njc4OSIsInBhc3N3b3JkIjoiY29yaW50aGlhbnMxMjMifSwiZXhhbVR5cGUiOnsiZXhhbVR5cGVJZCI6NCwiZXhhbU5hbWUiOiJDYXJkaW9sw7NnaWNvIn19LHsiZXhhbUVudHJ5SWQiOjcsImV4YW1SZXN1bHQiOiIxMiUiLCJleGFtRGF0ZVRpbWUiOiIyMDIyLTAzLTEzVDIwOjE3OjU4IiwicGF0aWVudCI6eyJ1c2VySWQiOjIsIm5hbWUiOiJGdWxhbm8iLCJlbWFpbCI6InRlc3RlQGdtYWlsLmNvbSIsImNwZiI6IjEyMzQ1Njc4OSIsInBhc3N3b3JkIjoiY29yaW50aGlhbnMxMjMifSwiZXhhbVR5cGUiOnsiZXhhbVR5cGVJZCI6NCwiZXhhbU5hbWUiOiJDYXJkaW9sw7NnaWNvIn19LHsiZXhhbUVudHJ5SWQiOjgsImV4YW1SZXN1bHQiOiIxMCUiLCJleGFtRGF0ZVRpbWUiOiIyMDIyLTAzLTEzVDIwOjE5OjM0IiwicGF0aWVudCI6eyJ1c2VySWQiOjIsIm5hbWUiOiJGdWxhbm8iLCJlbWFpbCI6InRlc3RlQGdtYWlsLmNvbSIsImNwZiI6IjEyMzQ1Njc4OSIsInBhc3N3b3JkIjoiY29yaW50aGlhbnMxMjMifSwiZXhhbVR5cGUiOnsiZXhhbVR5cGVJZCI6NCwiZXhhbU5hbWUiOiJDYXJkaW9sw7NnaWNvIn19XSwicGFnZWFibGUiOnsic29ydCI6eyJ1bnNvcnRlZCI6ZmFsc2UsInNvcnRlZCI6dHJ1ZSwiZW1wdHkiOmZhbHNlfSwib2Zmc2V0IjowLCJwYWdlTnVtYmVyIjowLCJwYWdlU2l6ZSI6MTAsInBhZ2VkIjp0cnVlLCJ1bnBhZ2VkIjpmYWxzZX0sInRvdGFsUGFnZXMiOjEsInRvdGFsRWxlbWVudHMiOjMsImxhc3QiOnRydWUsInNpemUiOjEwLCJudW1iZXIiOjAsInNvcnQiOnsidW5zb3J0ZWQiOmZhbHNlLCJzb3J0ZWQiOnRydWUsImVtcHR5IjpmYWxzZX0sIm51bWJlck9mRWxlbWVudHMiOjMsImZpcnN0Ijp0cnVlLCJlbXB0eSI6ZmFsc2V9
+  recorded_at: Tue, 15 Mar 2022 23:50:36 GMT
+recorded_with: VCR 6.0.0

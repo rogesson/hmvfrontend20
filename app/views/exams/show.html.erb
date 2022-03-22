@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<ul class="list-group">
+  <li class="list-group-item active" aria-current="true">Exame Nº <%= @exam.id %></li>
+  <li class="list-group-item">Resultado: <%= @exam.result %></li>
+  <li class="list-group-item">Data: <%= @exam.full_date %></li>
+  <li class="list-group-item">Exame: <%= @exam.exam_type.id %> | <%= @exam.exam_type.name %></li>
+</ul>
+<br>
+<ul class="list-group">
+  <li class="list-group-item active" aria-current="true">ID: <%= @exam.patient.id %> Paciente: <%= @exam.patient.name %></li>
+  <li class="list-group-item">Email: <%= @exam.patient.email %></li>
+  <li class="list-group-item">CPF: <%= @exam.patient.cpf %></li>
+  <li class="list-group-item">Senha: <%= @exam.patient.password %></li>
+</ul>
+<br>
+<%= link_to 'Edit', edit_exam_path(@exam) %> |
+<%= link_to 'Back', exams_path %>
