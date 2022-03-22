@@ -53,7 +53,7 @@ class Exam < BaseModel
     self.exam_type = ExamType.new(new_attributes[:exam_type])
 
     data = {
-      "examDateTime": "2022-03-13T20:19:34",
+      "examDateTime": "2022-03-22T22:19:48.939Z",
       "examResult": result,
       "examTypeId": exam_type.id,
       "patientId": patient.id,

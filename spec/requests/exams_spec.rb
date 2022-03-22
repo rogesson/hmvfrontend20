@@ -46,45 +46,50 @@ RSpec.describe "/exams", type: :request do
 
   describe "GET /show" do
     it "renders a successful response", :vcr do
-      get exam_url(1)
+      get exam_url(5)
+
       expect(response).to be_successful
 
       exam = assigns(:exam)
       expect(exam).not_to be_nil
       expect(exam.attributes).to match(
                                    {
-                                     id: 1,
-                                     name: "Neosaudina"
+                                     id: 5,
+                                     result: '12%',
+                                     date: '2022-03-13T20:19:34'
                                    }
                                  )
     end
   end
 
   describe "GET /new" do
-    it "renders a successful response" do
+    it "renders a successful response", :vcr do
       get new_exam_url
+
+      exam = assigns(:exam)
+      expect(exam.attributes).to match(
+                                   { id: nil, result: nil, date: nil }
+                                 )
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response", :vcr do
-      get edit_exam_url(1)
+      get edit_exam_url(5)
       expect(response).to be_successful
       exam = assigns(:exam)
-      expect(exam).not_to be_nil
+
       expect(exam.attributes).to match(
-                                   {
-                                     id: 1,
-                                     name: "Neosaudina"
-                                   }
+                                   { id: 5, result: '12%', date: '2022-03-13T20:19:34' }
                                  )
     end
   end
 
   describe "POST /create" do
-    context "with valid parameters", :vcr do
-      it "creates a new exam" do
+    context "with valid parameters" do
+
+      it "creates a new exam", :vcr do
         post exams_url, params: {
           exam: {
             result: "17%",
@@ -100,12 +105,12 @@ RSpec.describe "/exams", type: :request do
         exam = assigns(:exam)
         expect(exam.attributes)
           .to match(
-            {
-              id: 9,
-              result: '17%',
-              date: anything
-            }
-          )
+                {
+                  id: 9,
+                  result: '17%',
+                  date: anything
+                }
+              )
         expect(response).to redirect_to('http://www.example.com/exams/9')
       end
     end
@@ -114,15 +119,38 @@ RSpec.describe "/exams", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       it "updates the requested exam", :vcr do
-        patch exam_url(14), params: { exam: { id: 14, name: "aspirina" } }
-        expect(response).to redirect_to(exam_url(14))
+        new_exam_params = {
+          exam: {
+            id: 5,
+            result: "17%",
+            date: anything,
+            patient: {
+              id: 6
+            },
+            exam_type: {
+              id: 4
+            }
+          }
+        }
+
+        patch exam_url(5), params: new_exam_params
+
+        exam = assigns(:exam)
+        expect(exam.attributes)
+          .to match(
+                {
+                  id: 5,
+                  result: '17%',
+                  date: anything
+                }
+              )
       end
     end
   end
 
-  describe "DELETE /destroy", :vcr do
-    it "destroys the requested exam" do
-      delete exam_url(14)
+  describe "DELETE /destroy" do
+    it "destroys the requested exam", :vcr do
+      delete exam_url(5)
       expect(response).to redirect_to(exams_url)
     end
   end

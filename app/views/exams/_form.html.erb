@@ -20,18 +20,18 @@
     <%= form.fields_for :patient do |p| %>
       <div class="mb-3">
         <%= form.label :patient %>
-        <%= p.select :id, options_for_select(@patients, @exam.patient.id), { include_blank: 'Selecione' }, { class: "form-select" } %>
+        <%= p.select :id, options_for_select(@patients, @exam.patient.try(:id)), { include_blank: 'Selecione' }, { class: "form-select" } %>
       </div>
     <% end %>
 
     <%= form.fields_for :exam_type do |p| %>
       <div class="form-group">
         <%= form.label :id %>
-        <%= p.select :id, options_for_select(@exam_types, @exam.exam_type.id), { include_blank: 'Selecione' }, { class: "form-select" } %>
+        <%= p.select :id, options_for_select(@exam_types, @exam.exam_type.try(:id)), { include_blank: 'Selecione' }, { class: "form-select" } %>
       </div>
     <% end %>
 
-      <% if (false) %>
+    <% if (false) %>
       <%= form.fields_for :patient do |c| %>
         <div class="form-group">
           <%= form.label :name %>

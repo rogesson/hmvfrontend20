@@ -15,28 +15,22 @@ class ExamsController < ApplicationController
   def new
     @exam = Exam.new
     @patient = Patient.new
-    @patients = Patient.all.map { |p| ["ID: #{p.id} - #{p.name}", p.id]}
+    @patients = Patient.all.map { |p| ["ID: #{p.id} - #{p.name}", p.id] }
     @exam_types = ExamType.all.map { |p| ["ID: #{p.id} - #{p.name}", p.id] }
   end
 
   # GET /exams/1/edit
   def edit
     @exam = Exam.find(params[:id])
-    @patients = Patient.all.map { |p| ["ID: #{p.id} - #{p.name}", p.id]}
+    @patients = Patient.all.map { |p| ["ID: #{p.id} - #{p.name}", p.id] }
     @exam_types = ExamType.all.map { |p| ["ID: #{p.id} - #{p.name}", p.id] }
   end
 
   # POST /exams or /exams.json
   def create
-    puts "========================"
-    puts "exam_params: #{exam_params.inspect}"
-    puts "========================"
     @exam = Exam.new(exam_params)
     @exam.patient = Patient.new(exam_params[:patient])
     @exam.exam_type = ExamType.new(exam_params[:exam_type])
-
-    #@exam.patient = Patient.new({id: 1, name: "Rogesson", email: "rogessonb@gmail.com", cpf: "407.340.978-67", password: '1234'})
-    #@exam.exam_type = ExamType.new({id: 1, name: "Cardiologia"})
 
     respond_to do |format|
       if @exam.save
@@ -73,34 +67,36 @@ class ExamsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_exam
-      @exam = Exam.find(params[:id])
-    end
 
-    def exam_params
-      params.require(:exam).permit(
-        [
-          :result,
-          {
-            patient: [
-              :id,
-              :name,
-              :email,
-              :cpf
-            ]
-          },
-          {
-            exam_type: [
-              :id,
-              :name
-            ]
-          }
-        ]
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_exam
+    @exam = Exam.find(params[:id])
+  end
 
-    def patient_params
-      params.require(:patient).permit(:id, :name, :email, :cpf)
-    end
+  def exam_params
+    params.require(:exam).permit(
+      [
+        :id,
+        :result,
+        {
+          patient: [
+            :id,
+            :name,
+            :email,
+            :cpf
+          ]
+        },
+        {
+          exam_type: [
+            :id,
+            :name
+          ]
+        }
+      ]
+    )
+  end
+
+  def patient_params
+    params.require(:patient).permit(:id, :name, :email, :cpf)
+  end
 end
