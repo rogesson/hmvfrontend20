@@ -13,7 +13,7 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/drugs", type: :request do
-  
+
   # This should return the minimal set of attributes required to create a valid
   # Drug. As you add validations to Drug, be sure to
   # adjust the attributes here as well.
@@ -35,11 +35,11 @@ RSpec.describe "/drugs", type: :request do
       drugs = assigns(:drugs)
       expect(drugs).not_to be_nil
       expect(drugs.first.attributes).to match(
-        { 
-          id: 1,
-          name: "Neosaudina"
-        }
-      )
+                                          {
+                                            id: 1,
+                                            name: "Neosaudina"
+                                          }
+                                        )
     end
   end
 
@@ -51,11 +51,11 @@ RSpec.describe "/drugs", type: :request do
       drug = assigns(:drug)
       expect(drug).not_to be_nil
       expect(drug.attributes).to match(
-        { 
-          id: 1,
-          name: "Neosaudina"
-        }
-      )
+                                   {
+                                     id: 1,
+                                     name: "Neosaudina"
+                                   }
+                                 )
     end
   end
 
@@ -73,18 +73,18 @@ RSpec.describe "/drugs", type: :request do
       drug = assigns(:drug)
       expect(drug).not_to be_nil
       expect(drug.attributes).to match(
-        { 
-          id: 1,
-          name: "Neosaudina"
-        }
-      )
+                                   {
+                                     id: 1,
+                                     name: "Neosaudina"
+                                   }
+                                 )
     end
   end
 
   describe "POST /create" do
     context "with valid parameters", :vcr do
       it "creates a new Drug" do
-        post drugs_url, params: { drug: {name: "medicamentox"} }
+        post drugs_url, params: { drug: { name: "medicamentox" } }
         expect(response).to redirect_to('http://www.example.com/drugs.14')
       end
     end
@@ -93,7 +93,17 @@ RSpec.describe "/drugs", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       it "updates the requested drug", :vcr do
-        patch drug_url(14), params: { drug: { id: 14, name: "aspirina" } }
+        patch drug_url(14), params: { drug: { id: 14, name: "aspirina_updated" } }
+
+        drug = assigns(:drug)
+
+        expect(drug.attributes).to match(
+                                     {
+                                       id: 14,
+                                       name: "aspirina_updated"
+                                     }
+                                   )
+
         expect(response).to redirect_to(drug_url(14))
       end
     end
