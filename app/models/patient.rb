@@ -6,6 +6,13 @@ class Patient < BaseModel
   attribute :password, :string
 
   ENDPOINT = '/userdetails'.freeze
+  CUSTOM_ATTRIBUTES = {
+    id: 'userId',
+    name: 'name',
+    email: 'email',
+    cpf: 'cpf',
+    password: 'password'
+  }
 
   def self.all
     response = RequestService::get(ENDPOINT)

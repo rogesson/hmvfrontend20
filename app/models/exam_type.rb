@@ -3,6 +3,10 @@ class ExamType < BaseModel
   attribute :name, :string
 
   ENDPOINT = '/examtype'.freeze
+  CUSTOM_ATTRIBUTES = {
+    id: 'examTypeId',
+    name: 'examName'
+  }
 
   def self.all
     response = RequestService::get(ENDPOINT)

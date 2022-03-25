@@ -17,10 +17,16 @@
       <%= form.text_field :result, class: "form-control" %>
     </div>
 
+    <div class="mb-3">
+      <%= form.label :date %>
+      <%= form.text_field :date, value: exam.date_for_select, class: "form-control", type: :date %>
+    </div>
+
     <%= form.fields_for :patient do |p| %>
+      <%= exam.patient.id %>
       <div class="mb-3">
         <%= form.label :patient %>
-        <%= p.select :id, options_for_select(@patients, @exam.patient.try(:id)), { include_blank: 'Selecione' }, { class: "form-select" } %>
+        <%= p.select :id, options_for_select(@patients, exam.try(:patient).try(:id)), { include_blank: 'Selecione' }, { class: "form-select" } %>
       </div>
     <% end %>
 

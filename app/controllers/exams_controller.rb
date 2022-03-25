@@ -4,7 +4,7 @@ class ExamsController < ApplicationController
   # GET /exams or /exams.json
   def index
     @exams = Exam.all
-    puts @exams.map(&:attributes)
+    @exams.map(&:attributes)
   end
 
   # GET /exams/1 or /exams/1.json
@@ -78,6 +78,7 @@ class ExamsController < ApplicationController
       [
         :id,
         :result,
+        :date,
         {
           patient: [
             :id,

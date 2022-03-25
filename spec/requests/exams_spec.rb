@@ -34,13 +34,14 @@ RSpec.describe "/exams", type: :request do
 
       exams = assigns(:exams)
       expect(exams).not_to be_nil
+
       expected = {
-        id: 5,
-        date: "2022-03-13T19:56:18.593",
-        result: nil
+        id: 8,
+        date: "2022-03-13T20:19:34",
+        result: "10%"
       }
 
-      expect(exams.first.attributes).to match(expected)
+      expect(exams.last.attributes).to match(expected)
     end
   end
 
@@ -51,7 +52,13 @@ RSpec.describe "/exams", type: :request do
       expect(response).to be_successful
 
       exam = assigns(:exam)
+      patient = exam.patient
+      exam_type = exam.exam_type
+
       expect(exam).not_to be_nil
+      expect(patient).not_to be_nil
+      expect(exam_type).not_to be_nil
+
       expect(exam.attributes).to match(
                                    {
                                      id: 5,
@@ -59,6 +66,22 @@ RSpec.describe "/exams", type: :request do
                                      date: '2022-03-13T20:19:34'
                                    }
                                  )
+      expect(patient.attributes).to match(
+                                      {
+                                        cpf: "123456789",
+                                        email: "teste@gmail.com",
+                                        id: 2,
+                                        name: "Fulano",
+                                        password: "corinthians123",
+                                      }
+                                    )
+
+      expect(exam_type.attributes).to match(
+                                        {
+                                          id: 4,
+                                          name: "Cardiológico",
+                                        }
+                                      )
     end
   end
 
@@ -88,11 +111,11 @@ RSpec.describe "/exams", type: :request do
 
   describe "POST /create" do
     context "with valid parameters" do
-
       it "creates a new exam", :vcr do
         post exams_url, params: {
           exam: {
             result: "17%",
+            date: '2022-03-31',
             patient: {
               id: 1,
             },
