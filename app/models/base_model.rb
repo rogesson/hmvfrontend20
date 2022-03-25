@@ -10,6 +10,7 @@ class BaseModel
 
   def initialize(response = {})
     attr = new_attributes(response)
+
     super(attr)
   end
 
@@ -32,7 +33,12 @@ class BaseModel
   def save
     return false unless valid?
 
-    data = to_request(self.attributes)
+    attr = self.attributes
+    self::class::CUSTOM_ATTRIBUTES.each do |key, val|
+      attr[key] = self.send(key).attributes if self::class::CUSTOM_ATTRIBUTES[key].is_a?(Hash)
+    end
+
+    data = to_request(attr)
 
     response = RequestService.post(self::class::ENDPOINT, data)
 
@@ -50,7 +56,6 @@ class BaseModel
   def update(attr)
     data = to_request(attr)
 
-    debugger
     response = RequestService::put("#{self::class::ENDPOINT}/" + id.to_s, data)
     raise "Update error" unless response
 
@@ -67,12 +72,19 @@ class BaseModel
   end
 
   def to_request(attr)
+    attr = attr.to_h
     data = {}
     attr.each do |key, val|
-      data[self::class::CUSTOM_ATTRIBUTES.fetch(key.to_sym)] = val
+      if val.is_a?(Hash)
+        data = data.merge(
+          self::class::CUSTOM_ATTRIBUTES.fetch(key.to_sym).values[0].collect { |a, b| { b => val[a] } }.reduce({}, :merge)
+        )
+      else
+        data[self::class::CUSTOM_ATTRIBUTES.fetch(key.to_sym)] = val
+      end
     end
 
-    data
+    attr_to_request(data)
   end
 
   def self.all
@@ -89,8 +101,17 @@ class BaseModel
   def new_attributes(response)
     final_attr = {}
 
-    self::class::CUSTOM_ATTRIBUTES.map do |k, v|
-      final_attr[k] = response[v]
+    return final_attr if response.nil?
+
+    self::class::CUSTOM_ATTRIBUTES.map do |key, val|
+      if val.is_a?(Hash)
+        if self.respond_to?(key)
+          new_class = key.to_s.classify.constantize.send(:new, response[val.keys[0]])
+          self.send("#{key}=", new_class)
+        end
+      else
+        final_attr[key] = response[val]
+      end
     end
 
     final_attr = if final_attr.values.compact.empty?
@@ -99,5 +120,9 @@ class BaseModel
                    final_attr
                  end
     final_attr
+  end
+
+  def attr_to_request(data)
+    ;
   end
 end
