@@ -1,0 +1,28 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://172.22.0.1:8080/api/v1/userdetails?Content-Type=application%2Fjson
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 302
+      message: ''
+    headers:
+      content-type:
+      - application/json
+      transfer-encoding:
+      - chunked
+      date:
+      - Sat, 26 Mar 2022 00:45:58 GMT
+    body:
+      encoding: UTF-8
+      string: '{"content":[{"userId":2,"name":"roger","email":"rogessonb@gmail.com","cpf":"40734097867","password":"123123"},{"userId":3,"name":"Bruno","email":"Bruno
+        Souza","cpf":"192831928","password":null},{"userId":6,"name":"Lucas","email":"lucas13@gmail.com","cpf":"2039120931","password":null},{"userId":19,"name":"Ricardo","email":"rick@gmail.com","cpf":"9180293812","password":null}],"pageable":{"sort":{"unsorted":false,"sorted":true,"empty":false},"offset":0,"pageNumber":0,"pageSize":10,"paged":true,"unpaged":false},"totalPages":1,"totalElements":4,"last":true,"size":10,"number":0,"sort":{"unsorted":false,"sorted":true,"empty":false},"numberOfElements":4,"first":true,"empty":false}'
+  recorded_at: Sat, 26 Mar 2022 00:45:58 GMT
+recorded_with: VCR 6.0.0
