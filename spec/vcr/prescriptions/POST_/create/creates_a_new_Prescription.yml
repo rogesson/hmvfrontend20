@@ -1,0 +1,29 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://172.22.0.1:8080/api/v1/prescription
+    body:
+      encoding: UTF-8
+      string: '{"prescriptionId":null,"prescription":"2x ao dia","prescriptionDate":null,"patientId":6,"name":null,"email":null,"cpf":null,"password":null,"drugId":11,"drugName":null,"prescriptionTime":"2022-03-26T00:00:00.257Z"}'
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: ''
+    headers:
+      content-type:
+      - application/json
+      transfer-encoding:
+      - chunked
+      date:
+      - Sat, 26 Mar 2022 13:51:20 GMT
+    body:
+      encoding: UTF-8
+      string: '{"prescriptionId":23,"prescription":"2x ao dia","prescriptionDate":null,"patient":{"userId":6,"name":"Lucas","email":"lucas13@gmail.com","cpf":"2039120931","password":null},"drug":{"drugId":11,"drugName":"Aspirina"}}'
+  recorded_at: Sat, 26 Mar 2022 13:51:20 GMT
+recorded_with: VCR 6.0.0
