@@ -55,7 +55,6 @@ class BaseModel
 
   def update(attr)
     data = to_request(attr)
-
     response = RequestService::put("#{self::class::ENDPOINT}/" + id.to_s, data)
     raise "Update error" unless response
 
@@ -123,6 +122,6 @@ class BaseModel
   end
 
   def attr_to_request(data)
-    ;
+    data
   end
 end

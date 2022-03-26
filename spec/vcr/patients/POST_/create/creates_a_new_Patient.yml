@@ -1,0 +1,29 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://172.22.0.1:8080/api/v1/userdetails
+    body:
+      encoding: UTF-8
+      string: '{"userId":null,"name":"Alfredo","email":"alfredo@gmail.com","cpf":"9190293812","password":null}'
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: ''
+    headers:
+      content-type:
+      - application/json
+      transfer-encoding:
+      - chunked
+      date:
+      - Sat, 26 Mar 2022 00:52:17 GMT
+    body:
+      encoding: UTF-8
+      string: '{"userId":20,"name":"Alfredo","email":"alfredo@gmail.com","cpf":"9190293812","password":null}'
+  recorded_at: Sat, 26 Mar 2022 00:52:17 GMT
+recorded_with: VCR 6.0.0
