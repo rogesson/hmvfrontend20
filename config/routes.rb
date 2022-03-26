@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :drugs
   resources :exams
   resources :patients
+  resources :prescriptions
 end

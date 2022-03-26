@@ -9,6 +9,7 @@ class ExamsController < ApplicationController
 
   # GET /exams/1 or /exams/1.json
   def show
+    @prescriptions = Prescription.all
   end
 
   # GET /exams/new
@@ -95,9 +96,5 @@ class ExamsController < ApplicationController
         }
       ]
     )
-  end
-
-  def patient_params
-    params.require(:patient).permit(:id, :name, :email, :cpf)
   end
 end

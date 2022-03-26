@@ -50,7 +50,6 @@ RSpec.describe "/patients", type: :request do
       get patient_url(19)
 
       patient = assigns(:patient)
-      expect(patient).not_to be_nil
       expect(patient.attributes).to match(
                                       {
                                         id: 19,

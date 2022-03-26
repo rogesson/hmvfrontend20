@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://172.22.0.1:8080/api/v1/prescription/id/21?Content-Type=application%2Fjson
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+  response:
+    status:
+      code: 302
+      message: ''
+    headers:
+      content-type:
+      - application/json
+      transfer-encoding:
+      - chunked
+      date:
+      - Sat, 26 Mar 2022 13:52:53 GMT
+    body:
+      encoding: UTF-8
+      string: '{"prescriptionId":21,"prescription":"tomar 1x ao dia","prescriptionDate":null,"patient":{"userId":2,"name":"roger","email":"rogessonb@gmail.com","cpf":"40734097867","password":"123123"},"drug":{"drugId":11,"drugName":"Aspirina"}}'
+  recorded_at: Sat, 26 Mar 2022 13:52:53 GMT
+- request:
+    method: delete
+    uri: http://172.22.0.1:8080/api/v1/prescription/21
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      content-type:
+      - text/plain;charset=UTF-8
+      content-length:
+      - '24'
+      date:
+      - Sat, 26 Mar 2022 13:52:53 GMT
+    body:
+      encoding: UTF-8
+      string: 'Deleted successfully: 21'
+  recorded_at: Sat, 26 Mar 2022 13:52:53 GMT
+recorded_with: VCR 6.0.0

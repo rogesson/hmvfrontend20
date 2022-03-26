@@ -1,0 +1,38 @@
+<%= form_with(model: prescription, local: true) do |form| %>
+  <% if prescription.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(prescription.errors.count, "error") %> prohibited this prescription from being saved:</h2>
+
+      <ul>
+        <% prescription.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <div class="form-group">
+      <%= form.label :description %>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.fields_for :patient do |p| %>
+        <%= prescription.patient.id %>
+        <div class="mb-3">
+          <%= form.label :patient %>
+          <%= p.text_field :id %>
+        </div>
+      <% end %>
+      <% if false %>
+        <%= form.fields_for :drug do |p| %>
+          <div class="form-group">
+            <%= form.label :id %>
+            <%= p.select :id, options_for_select(@drugs, nil), { include_blank: 'Selecione' }, { class: "form-select" } %>
+          </div>
+        <% end %>
+      <% end %>
+      <%= form.submit %>
+    </div>
+<% end %>
