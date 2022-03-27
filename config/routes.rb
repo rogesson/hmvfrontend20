@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  root to: 'welcome#index'
+  root to: 'registrations#index'
 
   resources :drugs
   resources :exams
   resources :patients
   resources :prescriptions
+  resources :registrations
+
+  post 'login', to: 'registrations#login'
 end

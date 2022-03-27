@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
+<%= link_to '<', drugs_path %>
 
-<strong>ID: <%= @drug.id %></strong>
-<strong>ID: <%= @drug.name %></strong>
+<br>
+<ul class="list-group">
+  <li class="list-group-item active" aria-current="true">Medicamento
+  <li class="list-group-item"><%= @drug.name %></li>
+</ul>
 
-<%= link_to 'Edit', edit_drug_path(@drug) %> |
-<%= link_to 'Back', drugs_path %>
+<%= link_to 'Editar', edit_drug_path(@drug) %>
