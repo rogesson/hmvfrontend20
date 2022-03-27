@@ -1,4 +1,27 @@
 <p id="notice"><%= notice %></p>
 
+<%= @patient.name %>
+
+<table class="table">
+  <thead>
+  <tbody>
+  <tr>
+    <a class="btn-floating btn-large blue" href="https://discord.gg/2zm6NEPzzP" target="_blank">
+      <i class="iconify big" height="2em" style="margin-top: 13px;" data-icon="healthicons:health-data-security-outline"></i>
+    </a>
+    <td><%= link_to 'Controle de Medicamentos', drugs_path %></td>
+  </tr>
+  <tr>
+    <td><%= link_to 'Registro de Exames', exams_path %></td>
+  </tr>
+  <tr>
+    <td>Fale Conosco</td>
+  </tr>
+  <tr>
+    <td>Seu Cadastro</td>
+  </tr>
+  </tbody>
+</table>
+
 <%= link_to 'Edit', edit_patient_path(@patient) %> |
 <%= link_to 'Back', patients_path %>

@@ -1,30 +1,27 @@
 <p id="notice"><%= notice %></p>
+<%= link_to '<', "patients/#{session[:id]}" %>
 
 <h1>Listagem de Medicamentos</h1>
 
+<br>
+<%= link_to '+ Adicionar Medicamento', new_drug_path %>
+<br>
+<br>
 <table class="table">
   <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>Nome</th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @drugs.each do |drug| %>
-      <tr>
-        <td><%= drug.id %></td>
-        <td><%= drug.name %></td>
-
-        <td><%= link_to 'Exibir', drug %></td>
-        <td><%= link_to 'Editar', edit_drug_path(drug) %></td>
-        <td><%= link_to 'Deletar', drug, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+  <% @drugs.each do |drug| %>
+    <tr>
+      <td><a href="/drugs/<%= drug.id %>"><%= drug.name %></a></td>
+      <td><%= link_to 'X', drug, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
-
-<%= link_to 'New Drug', new_drug_path %>

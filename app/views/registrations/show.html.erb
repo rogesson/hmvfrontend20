@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to '<', registrations_path %>
+<% if false %>
+  <h2>
+    Preencha os dados para efetuaro cadastro
+    <br>
+    Etapa 1 de 3
+  </h2>
+<% end %>
+
+<h2>
+  Insira seus dados para realizaro login
+</h2>
+<div class="actions">
+  <%= form_for(@patient, url: { action: 'login' }, local: true) do |form| %>
+    <div class="form-group">
+      <%= form.label "CPF" %>
+      <%= form.text_field :cpf, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :password %>
+      <%= form.password_field :password, class: "form-control" %>
+    </div>
+
+    <br>
+    <%= form.submit 'Entrar', class: 'btn btn-primary' %>
+  <% end %>
+</div>
