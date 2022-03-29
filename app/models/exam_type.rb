@@ -12,11 +12,10 @@ class ExamType < BaseModel
     response = RequestService::get(ENDPOINT)
     return [] unless response
 
-    #{"content":[{"examTypeId":4,"examName":"Cardiológico"}]
     response["content"].map do |resource|
       attr = {
         id: resource['examTypeId'],
-        name: resource['examName'],
+        name: resource['examName']
       }
 
       ExamType.new(attr)

@@ -1,10 +1,22 @@
-<p id="notice"><%= notice %></p>
-<%= link_to '<', drugs_path %>
-
+<%= link_to "/patients/#{session[:id]}" do %>
+  <i class="material-icons icon-blue">arrow_back</i>
+<% end %>
 <br>
+<br>
+<p id="notice"><%= notice %></p>
+
 <ul class="list-group">
-  <li class="list-group-item active" aria-current="true">Medicamento
+  <li class="list-group-item active" aria-current="true">Nome do Medicamento
   <li class="list-group-item"><%= @drug.name %></li>
+  <li class="list-group-item">Qual a frequência que você toma o medicamento?</li>
+  <li class="list-group-item">
+    <%= radio_button_tag 'frequency', '3', true %> Uma vez ao dia<br>
+    <%= radio_button_tag 'frequency', '3' %> Duas vezes ao dia<br>
+    <%= radio_button_tag 'frequency', '3' %> Outra Frequência
+  </li>
 </ul>
 
-<%= link_to 'Editar', edit_drug_path(@drug) %>
+<br>
+<%= link_to edit_drug_path(@drug) do %>
+  <i class="material-icons icon-blue">edit</i> Editar
+<% end %>

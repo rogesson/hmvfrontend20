@@ -3,7 +3,7 @@ class Exam < BaseModel
   attribute :result, :string
   attribute :date, :string
 
-  #validates_presence_of :result
+  validates_presence_of :result, :date
 
   ENDPOINT = '/examentry'.freeze
 
@@ -36,11 +36,13 @@ class Exam < BaseModel
 
   def date_for_select
     return unless date
+
     Date.parse(date).strftime('%Y-%m-%d')
   end
 
   def attr_to_request(data)
-    data['examDateTime'] = Date.parse(date).strftime("%Y-%m-%dT00:00:00.257Z")
+    data['examDateTime'] = Date.parse(date)
+                               .strftime("%Y-%m-%dT00:00:00.257Z")
 
     data
   end

@@ -15,7 +15,7 @@
  */
 
 .cookie {
-    background-color: #0d6efd;
+    background-color: #0404cc;
     color: white;
     position: fixed;
     width: 100%;
@@ -28,5 +28,22 @@
 }
 
 .cookie > span {
-    color: #0d6efd;
+    color: #0404cc;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+i.icon-blue {
+    color: #0404cc;
+    float: inline-start;
+}
+
+i.large {
+    font-size: 64px;
+}
+
+i.icon-gray {
+    color: gray;
 }

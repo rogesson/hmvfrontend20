@@ -30,7 +30,7 @@ class ExamsController < ApplicationController
   # POST /exams or /exams.json
   def create
     @exam = Exam.new(exam_params)
-    @exam.patient = Patient.new(exam_params[:patient])
+    @exam.patient = Patient.find(session[:id]) #Patient.new(exam_params[:patient])
     @exam.exam_type = ExamType.new(exam_params[:exam_type])
 
     respond_to do |format|

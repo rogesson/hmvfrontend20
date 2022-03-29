@@ -1,5 +1,8 @@
+<%= link_to "/exams" do %>
+  <i class="material-icons icon-blue">arrow_back</i>
+<% end %>
+<br>
+
 <h1>Novo Exame</h1>
 
 <%= render 'form', exam: @exam %>
-
-<%= link_to 'Back', exams_path %>

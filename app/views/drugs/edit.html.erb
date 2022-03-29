@@ -1,5 +1,9 @@
+<%= link_to "/drugs/#{params[:id]}" do %>
+  <i class="material-icons icon-blue">arrow_back</i>
+<% end %>
+<br>
+<br>
+
 <h1>Editar Medicamento</h1>
 
 <%= render 'form', drug: @drug %>
-
-<%= link_to 'Voltar', drugs_path %>

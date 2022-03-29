@@ -12,27 +12,27 @@
   <% end %>
 
   <div class="actions">
+    Resultado
     <div class="mb-3">
-      <%= form.label :result %>
       <%= form.text_field :result, class: "form-control" %>
     </div>
 
+    Data do Exame
     <div class="mb-3">
-      <%= form.label :date %>
       <%= form.text_field :date, value: exam.date_for_select, class: "form-control", type: :date %>
     </div>
 
-    <%= form.fields_for :patient do |p| %>
+    <% form.fields_for :patient do |p| %>
       <%= exam.patient.id %>
       <div class="mb-3">
         <%= form.label :patient %>
-        <%= p.select :id, options_for_select(@patients, exam.try(:patient).try(:id)), { include_blank: 'Selecione' }, { class: "form-select" } %>
+        <% p.select :id, options_for_select(@patients, exam.try(:patient).try(:id)), { include_blank: 'Selecione' }, { class: "form-select" } %>
       </div>
     <% end %>
 
     <%= form.fields_for :exam_type do |p| %>
       <div class="form-group">
-        <%= form.label :id %>
+        Tipo do Exame
         <%= p.select :id, options_for_select(@exam_types, @exam.exam_type.try(:id)), { include_blank: 'Selecione' }, { class: "form-select" } %>
       </div>
     <% end %>
@@ -68,6 +68,6 @@
       <% end %>
     <% end %>
     <br>
-    <%= form.submit class: "btn btn-primary" %>
+    <%= form.submit 'Salvar', class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -1,10 +1,14 @@
 <p id="notice"><%= notice %></p>
-<%= link_to '<', "patients/#{session[:id]}" %>
 
-<h1>Listagem de Medicamentos</h1>
-
+<%= link_to "patients/#{session[:id]}" do %>
+  <i class="material-icons icon-blue">arrow_back</i>
+<% end %>
 <br>
-<%= link_to '+ Adicionar Medicamento', new_drug_path %>
+<br>
+
+<%= link_to new_drug_path do %>
+  <i class="material-icons icon-blue">add</i>Adicionar Medicamento
+<% end %>
 <br>
 <br>
 <table class="table">
@@ -20,7 +24,11 @@
   <% @drugs.each do |drug| %>
     <tr>
       <td><a href="/drugs/<%= drug.id %>"><%= drug.name %></a></td>
-      <td><%= link_to 'X', drug, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td>
+        <%= link_to drug, method: :delete, data: { confirm: 'Você tem certeza?' } do %>
+          <i class="material-icons icon-blue">delete_forever</i>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>

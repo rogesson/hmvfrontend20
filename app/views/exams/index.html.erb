@@ -1,13 +1,18 @@
-<p id="notice"><%= notice %></p>
+<%= link_to "patients/#{session[:id]}" do %>
+  <i class="material-icons icon-blue">arrow_back</i>
+<% end %>
+<br>
+<br>
 
-<h1>Exames</h1>
+<p id="notice"><%= notice %></p>
+<%= link_to new_exam_path do %>
+  <i class="material-icons icon-blue">add</i>Adicionar Exame
+<% end %>
 
 <table class="table">
   <thead>
   <tr>
-    <th>ID</th>
-    <th>Data do Exame</th>
-    <th>Paciente</th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,17 +22,13 @@
   <tbody>
   <% @exams.each do |exam| %>
     <tr>
-      <td><%= exam.id %></td>
-      <td><%= exam.full_date %></td>
-      <td><%= exam.patient.name %></td>
-      <td><%= link_to 'Show', exam %></td>
-      <td><%= link_to 'Edit', edit_exam_path(exam) %></td>
-      <td><%= link_to 'Destroy', exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to "Exame - #{exam.full_date}", exam %></td>
+      <td>
+        <%= link_to exam, method: :delete, data: { confirm: 'Você tem certeza?' } do %>
+          <i class="material-icons icon-blue">delete_forever</i>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Exam', new_exam_path %>

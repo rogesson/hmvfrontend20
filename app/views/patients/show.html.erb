@@ -1,27 +1,42 @@
 <p id="notice"><%= notice %></p>
 
-<%= @patient.name %>
+<div style="text-align: center;">
+  <i class="material-icons icon-gray large">person</i><br>
+  <%= @patient.name %>
+</div>
 
 <table class="table">
   <thead>
   <tbody>
   <tr>
-    <a class="btn-floating btn-large blue" href="https://discord.gg/2zm6NEPzzP" target="_blank">
-      <i class="iconify big" height="2em" style="margin-top: 13px;" data-icon="healthicons:health-data-security-outline"></i>
-    </a>
-    <td><%= link_to 'Controle de Medicamentos', drugs_path %></td>
+    <td>
+      <%= link_to drugs_path do %>
+        <i class="material-icons icon-blue">assignment_turned_in</i>Controle de Medicamentos
+      <% end %>
+    </td>
   </tr>
   <tr>
-    <td><%= link_to 'Registro de Exames', exams_path %></td>
+    <td>
+      <%= link_to exams_path do %>
+        <i class="material-icons icon-blue">content_paste</i>Registro de Exames
+      <% end %>
+    </td>
   </tr>
   <tr>
-    <td>Fale Conosco</td>
+    <td>
+      <%= link_to '#' do %>
+        <i class="material-icons icon-blue">chat</i>Fale Conosco
+      <% end %>
+    </td>
   </tr>
   <tr>
-    <td>Seu Cadastro</td>
+    <td>
+      <%= link_to '#' do %>
+        <i class="material-icons icon-blue">person_add</i>Alteração de Dados
+      <% end %>
+    </td>
   </tr>
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_patient_path(@patient) %> |
-<%= link_to 'Back', patients_path %>
+<div style="text-align: center;"><%= link_to 'SAIR', registrations_path, class: 'btn btn-primary' %></div>

@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to '<', registrations_path %>
+<%= link_to registrations_path do %>
+  <i class="material-icons icon-blue">arrow_back</i>
+<% end %>
+<br>
+
 <% if false %>
   <h2>
     Preencha os dados para efetuaro cadastro
@@ -14,13 +18,13 @@
 </h2>
 <div class="actions">
   <%= form_for(@patient, url: { action: 'login' }, local: true) do |form| %>
+    E-mail ou CPF
     <div class="form-group">
-      <%= form.label "CPF" %>
       <%= form.text_field :cpf, class: "form-control" %>
     </div>
 
+    Senha
     <div class="form-group">
-      <%= form.label :password %>
       <%= form.password_field :password, class: "form-control" %>
     </div>
 
