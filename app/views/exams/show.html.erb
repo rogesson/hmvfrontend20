@@ -17,11 +17,4 @@
     Paciente: <%= @exam.patient.name %></li>
   <li class="list-group-item">Email: <%= @exam.patient.email %></li>
   <li class="list-group-item">CPF: <%= @exam.patient.cpf %></li>
-  <li class="list-group-item">Senha: <%= @exam.patient.password %></li>
 </ul>
-
-<%= link_to 'Adicionar Receita', new_prescription_path %>
-<br>
-<br>
-<%= link_to 'Editar', edit_exam_path(@exam) %> |
-<%= link_to 'Voltar', exams_path %>
