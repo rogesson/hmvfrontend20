@@ -7,12 +7,13 @@ class RegistrationsController < ApplicationController
 
   # GET /registrations/1 or /registrations/1.json
   def show
-    @patient = Patient.new
+    @patient = Patient.last || Patient.new
   end
 
   # GET /registrations/new
   def new
-    @registration = Registration.new
+    @step = params[:id] || 1
+    @patient = Patient.new
   end
 
   # GET /registrations/1/edit
@@ -21,8 +22,9 @@ class RegistrationsController < ApplicationController
 
   #
   def login
-    session[:id] = 6
-    redirect_to "/patients/6"
+    @patient = Patient.last
+    session[:id] = @patient.id
+    redirect_to "/patients/#{session[:id]}"
   end
 
   # POST /registrations or /registrations.json

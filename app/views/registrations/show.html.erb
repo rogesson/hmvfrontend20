@@ -16,16 +16,17 @@
 <h2>
   Insira seus dados para realizaro login
 </h2>
+
 <div class="actions">
-  <%= form_for(@patient, url: { action: 'login' }, local: true) do |form| %>
+  <%= form_for(@patient, url: login_path, method: :post, local: true) do |form| %>
     E-mail ou CPF
     <div class="form-group">
-      <%= form.text_field :cpf, class: "form-control" %>
+      <%= form.text_field :cpf, value: @patient.cpf, class: "form-control", required: true %>
     </div>
 
     Senha
     <div class="form-group">
-      <%= form.password_field :password, class: "form-control" %>
+      <%= form.password_field :password, value: @patient.password, class: "form-control", required: true %>
     </div>
 
     <br>

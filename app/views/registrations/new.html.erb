@@ -1,5 +1,7 @@
-<h1>New Registration</h1>
+<h2>Etapa <%= @step %></h2>
 
-<%= render 'form', registration: @registration %>
-
-<%= link_to 'Back', registrations_path %>
+<% if @step == "2" %>
+  <%= render 'form', patient: @patient %>
+<% else %>
+  <%= render 'user_term' %>
+<% end %>

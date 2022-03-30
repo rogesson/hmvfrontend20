@@ -67,7 +67,7 @@ class BaseModel
   end
 
   def self.last
-    self.class.all.last
+    self.all.last
   end
 
   def to_request(attr)
@@ -88,7 +88,7 @@ class BaseModel
 
   def self.all
     response = RequestService::get(self::ENDPOINT)
-    return [] unless response
+    return nil unless response
 
     response["content"].map do |drug|
       self.new(drug)

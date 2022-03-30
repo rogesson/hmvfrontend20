@@ -1,5 +1,9 @@
 <h1>Adicionar Medicamento</h1>
-<%= link_to '<', drugs_path %>
+<%= link_to drugs_path do %>
+  <i class="material-icons icon-blue">arrow_back</i>
+<% end %>
+<br>
+<br>
 
 <%= render 'form', drug: @drug %>
 

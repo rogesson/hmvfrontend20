@@ -1,17 +1,39 @@
-<%= form_with(model: registration, local: true) do |form| %>
-  <% if registration.errors.any? %>
+<h2>Preencha os dados para efetuar o cadastro</h2>
+
+<%= form_with(model: patient, local: true) do |form| %>
+  <% if patient.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(registration.errors.count, "error") %> prohibited this registration from being saved:</h2>
+      <h2><%= pluralize(patient.errors.count, "error") %> prohibited this registration from being saved:</h2>
 
       <ul>
-      <% registration.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% patient.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <div class="form-group">
+      Nome
+      <%= form.text_field :name, class: "form-control", required: true %>
+    </div>
+
+    <div class="form-group">
+      E-mail
+      <%= form.text_field :email, class: "form-control", required: true, pattern: '[^@]+@[^@]+\.[a-zA-Z]{2,6}', placeholder: "meuemail@email.com" %>
+    </div>
+
+    <div class="form-group">
+      CPF
+      <%= form.text_field :cpf, class: "form-control", required: true, placeholder: "111.111.111-11", pattern: "[0 - 9] { 3 }\.?[0 - 9]{ 3 }\.?[0 - 9]{ 3 }\-?[0 - 9]{ 2 }" %>
+    </div>
+
+    <div class="form-group">
+      Senha
+      <%= form.password_field :password, class: "form-control", required: true %>
+    </div>
+
+    <%= form.submit "Continuar >", class: 'btn btn-primary' %>
   </div>
 <% end %>

@@ -35,7 +35,7 @@ class Exam < BaseModel
   end
 
   def date_for_select
-    return unless date
+    return Date.today.strftime('%Y-%m-%d') unless date
 
     Date.parse(date).strftime('%Y-%m-%d')
   end
