@@ -1,7 +1,7 @@
 require 'faraday'
 
 module RequestService
-  API_ENDPOINT = 'http://172.22.0.1:8080/api/v1'
+  API_ENDPOINT = ENV['ENDPOINT_API']
 
   def self.get(uri = '')
     response = Faraday.get(
