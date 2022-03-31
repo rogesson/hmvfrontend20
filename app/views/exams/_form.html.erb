@@ -23,17 +23,17 @@
     </div>
 
     <% form.fields_for :patient do |p| %>
-      <%= exam.patient.id %>
       <div class="mb-3">
         <%= form.label :patient %>
-        <% p.select :id, options_for_select(@patients, exam.try(:patient).try(:id)), { include_blank: 'Selecione' }, { class: "form-select" } %>
+        <%= p.hidden_field :id, value: session[:id] %>
       </div>
     <% end %>
 
     <%= form.fields_for :exam_type do |p| %>
       <div class="form-group">
         Tipo do Exame
-        <%= p.select :id, options_for_select(@exam_types, @exam.exam_type.try(:id)), { include_blank: 'Selecione' }, { class: "form-select" } %>
+
+        <%= p.select :id, [1, 'Cardiológico'], {}, { class: "form-select" } %>
       </div>
     <% end %>
 

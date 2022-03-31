@@ -5,7 +5,7 @@ http_interactions:
     uri: http://172.22.0.1:8080/api/v1/examentry
     body:
       encoding: UTF-8
-      string: '{"examResult":"17%","examDateTime":"2022-03-16T21:57:43","examTypeId":4,"patientId":2}'
+      string: '{"examEntryId":null,"examResult":"17%","examDateTime":"2022-03-31T00:00:00.257Z","patientId":34,"name":null,"email":null,"cpf":null,"password":null,"examTypeId":4,"examName":null}'
     headers:
       User-Agent:
       - Faraday v1.10.0
@@ -21,10 +21,10 @@ http_interactions:
       transfer-encoding:
       - chunked
       date:
-      - Wed, 16 Mar 2022 21:57:43 GMT
+      - Wed, 30 Mar 2022 23:25:56 GMT
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJleGFtRW50cnlJZCI6OSwiZXhhbVJlc3VsdCI6IjE3JSIsImV4YW1EYXRlVGltZSI6IjIwMjItMDMtMTZUMjE6NTc6NDMiLCJwYXRpZW50Ijp7InVzZXJJZCI6MiwibmFtZSI6IkZ1bGFubyIsImVtYWlsIjoidGVzdGVAZ21haWwuY29tIiwiY3BmIjoiMTIzNDU2Nzg5IiwicGFzc3dvcmQiOiJjb3JpbnRoaWFuczEyMyJ9LCJleGFtVHlwZSI6eyJleGFtVHlwZUlkIjo0LCJleGFtTmFtZSI6IkNhcmRpb2zDs2dpY28ifX0=
-  recorded_at: Wed, 16 Mar 2022 21:57:43 GMT
+        eyJleGFtRW50cnlJZCI6MzcsImV4YW1SZXN1bHQiOiIxNyUiLCJleGFtRGF0ZVRpbWUiOiIyMDIyLTAzLTMxVDAwOjAwOjAwLjI1NyIsInBhdGllbnQiOnsidXNlcklkIjozNCwibmFtZSI6InJvZ2VyIiwiZW1haWwiOiJyb2dlc3NvbmJAZ21haWwuY29tIiwiY3BmIjoiNDA3MzQwOTc4NjciLCJwYXNzd29yZCI6ImFuc2RhcyJ9LCJleGFtVHlwZSI6eyJleGFtVHlwZUlkIjo0LCJleGFtTmFtZSI6IkNhcmRpb2zDs2dpY28ifX0=
+  recorded_at: Wed, 30 Mar 2022 23:25:56 GMT
 recorded_with: VCR 6.0.0

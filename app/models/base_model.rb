@@ -88,7 +88,7 @@ class BaseModel
 
   def self.all
     response = RequestService::get(self::ENDPOINT)
-    return nil unless response
+    return [] unless response
 
     response["content"].map do |drug|
       self.new(drug)

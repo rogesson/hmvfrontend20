@@ -9,7 +9,7 @@ class ExamsController < ApplicationController
 
   # GET /exams/1 or /exams/1.json
   def show
-    @prescriptions = Prescription.all
+    @exam = Exam.find(params[:id])
   end
 
   # GET /exams/new
@@ -30,7 +30,7 @@ class ExamsController < ApplicationController
   # POST /exams or /exams.json
   def create
     @exam = Exam.new(exam_params)
-    @exam.patient = Patient.find(session[:id]) #Patient.new(exam_params[:patient])
+    @exam.patient = Patient.new(exam_params[:patient])
     @exam.exam_type = ExamType.new(exam_params[:exam_type])
 
     respond_to do |format|

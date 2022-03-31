@@ -47,7 +47,7 @@ RSpec.describe "/exams", type: :request do
 
   describe "GET /show" do
     it "renders a successful response", :vcr do
-      get exam_url(5)
+      get exam_url(14)
 
       expect(response).to be_successful
 
@@ -61,18 +61,18 @@ RSpec.describe "/exams", type: :request do
 
       expect(exam.attributes).to match(
                                    {
-                                     id: 5,
-                                     result: '12%',
-                                     date: '2022-03-13T20:19:34'
+                                     id: 12,
+                                     result: '15%',
+                                     date: '2022-03-25T00:00:00.257'
                                    }
                                  )
       expect(patient.attributes).to match(
                                       {
-                                        cpf: "123456789",
-                                        email: "teste@gmail.com",
+                                        cpf: "40734097867",
+                                        email: "rogessonb@gmail.com",
                                         id: 2,
-                                        name: "Fulano",
-                                        password: "corinthians123",
+                                        name: "roger",
+                                        password: "123123",
                                       }
                                     )
 
@@ -117,10 +117,10 @@ RSpec.describe "/exams", type: :request do
             result: "17%",
             date: '2022-03-31',
             patient: {
-              id: 1,
+              id: 34,
             },
             exam_type: {
-              id: 5
+              id: 4
             }
           }
         }
@@ -129,12 +129,11 @@ RSpec.describe "/exams", type: :request do
         expect(exam.attributes)
           .to match(
                 {
-                  id: 9,
+                  id: 37,
                   result: '17%',
-                  date: anything
+                  date: '2022-03-31T00:00:00.257'
                 }
               )
-        expect(response).to redirect_to('http://www.example.com/exams/9')
       end
     end
   end
