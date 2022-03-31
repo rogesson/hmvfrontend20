@@ -32,8 +32,7 @@
     <%= form.fields_for :exam_type do |p| %>
       <div class="form-group">
         Tipo do Exame
-
-        <%= p.select :id, [1, 'Cardiológico'], {}, { class: "form-select" } %>
+        <%= p.select :id, options_for_select(@exam_types), { include_blank: 'Selecione' }, { class: "form-select" } %>
       </div>
     <% end %>
 
