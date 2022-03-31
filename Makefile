@@ -4,6 +4,9 @@ build:
 run:
 	docker-compose up
 
+run_d:
+	docker-compose up -d
+
 down:
 	docker-compose down
 
