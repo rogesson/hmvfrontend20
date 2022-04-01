@@ -1,5 +1,6 @@
 class DrugsController < ApplicationController
   before_action :set_drug, only: %i[ show edit update destroy ]
+  before_action :check_session
 
   # GET /drugs or /drugs.json
   def index

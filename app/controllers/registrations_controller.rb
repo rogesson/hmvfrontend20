@@ -27,6 +27,11 @@ class RegistrationsController < ApplicationController
     redirect_to "/patients/#{session[:id]}"
   end
 
+  def logout
+    session[:id] = nil
+    redirect_to "/"
+  end
+
   # POST /registrations or /registrations.json
   def create
     @registration = Registration.new(registration_params)

@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   resources :registrations
 
   post 'login', to: 'registrations#login'
+  get 'logout', to: 'registrations#logout'
 end
